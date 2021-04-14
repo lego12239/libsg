@@ -29,9 +29,9 @@ sg-update:
 	rm -rf libsg-1 libsg libsg.tar.gz
 #	mkdir libsg-1
 #	cd libsg && 
-		wget https://github.com/lego12239/libsg/archive/refs/tags/1.tar.gz -O libsg.tar.gz && \
-		gunzip -c libsg.tar.gz | tar -x && \
-		rm -f libsg.tar.gz
+		wget https://github.com/lego12239/libsg/archive/refs/heads/v1.zip -O libsg.zip && \
+		unzip libsg.zip && \
+		rm -f libsg.zip
 	mv libsg-1 libsg
 	cd libsg && make
 
