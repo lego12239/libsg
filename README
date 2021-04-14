@@ -1,3 +1,36 @@
 A wrapper for SDL library for use in teaching programming
 
 Inspired by txlib of Ilya Dedinsky(http://ded32.net.ru).
+
+Dependencies
+============
+
+- sdl2
+- make
+- gcc
+- gzip
+- wget
+- doxygen (for docs)
+
+Using
+=====
+
+Creating a project(for example with 'proj' name):
+- create a directory with 'proj' name (mkdir proj)
+- go to the directory (cd proj)
+- download Makefile template (wget https://raw.githubusercontent.com/lego12239/libsg/master/proj_skel/Makefile)
+- download and build libsg (make sg-update)
+- download a program template (wget https://raw.githubusercontent.com/lego12239/libsg/master/proj_skel/tmpl.c)
+- Replace 'tmpl' word with 'proj' word in 3 places:
+  - tmpl.c filename
+  - 1 line of Makefile with TARGET variable
+  - 2 line of Makefile with OBJS variable
+
+Now you can build your project with make command and run it with ./proj
+command.
+
+Docs
+====
+
+- cd libsg; make doc; cd ..
+- open libsg/doc/html/index.html in a browser
