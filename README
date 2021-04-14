@@ -32,5 +32,17 @@ command.
 Docs
 ====
 
+From your project dir:
+
 - cd libsg; make doc; cd ..
 - open libsg/doc/html/index.html in a browser
+
+Examples
+========
+
+From your project dir:
+
+- cd libsg; make
+
+Now you can run all executable files starting with ex word.
+
