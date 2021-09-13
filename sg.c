@@ -961,7 +961,7 @@ static sg_texture_t _sg_render_text(const char *font, unsigned int size, const c
  * @param y - y-координата для отрисовки текста
  * @param text - текст(строка формата как в printf)
  *
- * Нарисовать текст указанным шрифтом, размером, цветом в координатах (x, y).
+ * Нарисовать текст указанным шрифтом, размером и текущим цветом в координатах (x, y).
  */
 void
 sg_draw_text(const char *font, unsigned int size,
@@ -987,7 +987,7 @@ sg_draw_text(const char *font, unsigned int size,
  *
  * @return Текстура с текстом
  *
- * Сгенерировать текст указанным шрифтом, размером, цветом.
+ * Сгенерировать текст указанным шрифтом, размером и текущим цветом.
  */
 sg_texture_t
 sg_render_text(const char *font, unsigned int size, const char *text, ...)
