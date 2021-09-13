@@ -567,6 +567,20 @@ void sg_draw_texture_ext(sg_texture_t texture, int x, int y, int w, int h, doubl
 void sg_draw_text(const char *font, unsigned int size, unsigned int x, unsigned int y, const char *text, ...);
 
 /**
+ * @ingroup TextFun
+ * @brief Сгенерировать текстуру с текстом
+ *
+ * @param font - имя файла шрифта
+ * @param size - размер шрифта
+ * @param text - текст(строка формата как в printf)
+ *
+ * @return Текстура с текстом
+ *
+ * Сгенерировать текст указанным шрифтом, размером, цветом.
+ */
+sg_texture_t sg_render_text(const char *font, unsigned int size, const char *text, ...);
+
+/**
  * @ingroup ImgFun
  * @brief Загрузить изображение из файла в текстуру
  *

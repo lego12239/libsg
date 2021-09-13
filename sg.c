@@ -949,6 +949,8 @@ sg_draw_texture_ext(sg_texture_t texture, int x, int y, int w, int h,
 		sg_scene_present();
 }
 
+static sg_texture_t _sg_render_text(const char *font, unsigned int size, const char *text, va_list ap);
+
 /**
  * @ingroup TextFun
  * @brief Нарисовать текст
@@ -965,13 +967,52 @@ void
 sg_draw_text(const char *font, unsigned int size,
   unsigned int x, unsigned int y, const char *text, ...)
 {
+	SDL_Texture *ttmp;
+	va_list ap;
+
+	va_start(ap, text);
+	ttmp = _sg_render_text(font, size, text, ap);
+	va_end(ap);
+	sg_draw_texture(ttmp, x, y);
+	SDL_DestroyTexture(ttmp);
+}
+
+/**
+ * @ingroup TextFun
+ * @brief Сгенерировать текстуру с текстом
+ *
+ * @param font - имя файла шрифта
+ * @param size - размер шрифта
+ * @param text - текст(строка формата как в printf)
+ *
+ * @return Текстура с текстом
+ *
+ * Сгенерировать текст указанным шрифтом, размером, цветом.
+ */
+sg_texture_t
+sg_render_text(const char *font, unsigned int size, const char *text, ...)
+{
+	va_list ap;
+	sg_texture_t t;
+
+	va_start(ap, text);
+	t = _sg_render_text(font, size, text, ap);
+	va_end(ap);
+
+	return t;
+}
+
+static sg_texture_t
+_sg_render_text(const char *font, unsigned int size, const char *text,
+  va_list ap)
+{
 	SDL_Surface *stmp;
 	SDL_Texture *ttmp;
 	SDL_Color c;
 	TTF_Font *f;
 	int len;
 	char *str;
-	va_list ap;
+	va_list ap1;
 	
 	f  = TTF_OpenFont(font, size);
 	if (!f) {
@@ -982,17 +1023,17 @@ sg_draw_text(const char *font, unsigned int size,
 		fprintf(stderr, "Ошибка рендеринга текста: %s\n", TTF_GetError());
 		exit(EXIT_FAILURE);
 	}
-	va_start(ap, text);
-	len = vsnprintf(NULL, 0, text, ap);
-	va_end(ap);
+	va_copy(ap1, ap);
+	len = vsnprintf(NULL, 0, text, ap1);
+	va_end(ap1);
 	str = malloc(len + 1);
 	if (!str) {
 		fprintf(stderr, "Ошибка: недостаточно памяти: %d байт\n", len + 1);
 		exit(EXIT_FAILURE);
 	}
-	va_start(ap, text);
-	vsnprintf(str, len + 1, text, ap);
-	va_end(ap);
+	va_copy(ap1, ap);
+	vsnprintf(str, len + 1, text, ap1);
+	va_end(ap1);
 	stmp = TTF_RenderUTF8_Solid(f, str, c);
 	if (!stmp) {
 		fprintf(stderr, "Ошибка рендеринга текста: %s\n", TTF_GetError());
@@ -1003,11 +1044,10 @@ sg_draw_text(const char *font, unsigned int size,
 		fprintf(stderr, "Ошибка рендеринга текста: %s\n", TTF_GetError());
 		exit(EXIT_FAILURE);
 	}
-	sg_draw_texture(ttmp, x, y);
-	SDL_DestroyTexture(ttmp);
 	SDL_FreeSurface(stmp);
 	free(str);
 	TTF_CloseFont(f);
+	return ttmp;
 }
 
 /**
