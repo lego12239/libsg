@@ -525,6 +525,31 @@ void sg_texture_info(sg_texture_t texture, int *w, int *h);
 void sg_texture_blendmode(sg_texture_t texture, unsigned int mode);
 
 /**
+ * @ingroup TextureFun
+ * @brief Установка модификации альфа-канала текстуры
+ *
+ * @param texture - текстура
+ * @param a - значение для операции над альфа-каналом
+ *
+ * Значение альфа-канала текстуры при отрисовке будет умножено на a/255.
+ */
+void sg_texture_set_alphamod(sg_texture_t texture, uint8_t a);
+
+/**
+ * @ingroup TextureFun
+ * @brief Установка модификации цвета текстуры
+ *
+ * @param texture - текстура
+ * @param r - значение для операции над красным каналом
+ * @param g - значение для операции над зелёным каналом
+ * @param b - значение для операции над синим каналом
+ *
+ * Значение красного канала текстуры при отрисовке будет умножено на r/255 и
+ * соответственно для других 2х каналов.
+ */
+void sg_texture_set_colormod(sg_texture_t texture, uint8_t r, uint8_t g, uint8_t b);
+
+/**
  * @ingroup DrawFun
  * @ingroup TextureFun
  * @brief Нарисовать текстуру
