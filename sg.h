@@ -179,6 +179,7 @@ enum event_type {
 #define SG_SCANCODE_LSHIFT 94
 #define SG_SCANCODE_LCTRL 95
 #define SG_SCANCODE_LALT 96
+#define SG_SCANCODE_F 97
 /**
  * @}
  */
