@@ -1397,6 +1397,9 @@ _sg_event_getwinevent(SDL_WindowEventID ev)
 	return -1;
 }
 
+/*
+ * @todo добавить для window event data1 и data2 - например при изменении размера
+ */
 static void
 _sg_event_fill(SDL_Event *e, enum event_type *type, int *data1, int *data2)
 {
