@@ -338,6 +338,23 @@ sg_destroy_window(void)
 }
 
 /**
+ * @ingroup Init
+ * @brief Получить размеры окна
+ *
+ * @param width - где сохранить ширину
+ * @param height - где сохранить высоту
+ */
+void
+sg_get_window_size(unsigned int *width, unsigned int *height)
+{
+	int w, h;
+
+	SDL_GetWindowSize(__sg_window__, &w, &h);
+	*width = w;
+	*height = h;
+}
+
+/**
  * @ingroup Colors
  * @brief Установить текущий цвет в color (0xRRGGBBAA)
  *

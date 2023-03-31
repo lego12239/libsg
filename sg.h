@@ -265,6 +265,15 @@ int sg_create_window_ext(unsigned int width, unsigned int height,
 void sg_destroy_window(void);
 
 /**
+ * @ingroup Init
+ * @brief Получить размеры окна
+ *
+ * @param width - где сохранить ширину
+ * @param height - где сохранить высоту
+ */
+void sg_get_window_size(unsigned int *width, unsigned int *height);
+
+/**
  * @ingroup Colors
  * @brief Установить текущий цвет в color (0xRRGGBBAA)
  *
