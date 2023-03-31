@@ -1,7 +1,8 @@
 TARGET = tmpl
 OBJS = tmpl.o
 LIBS = sg
-CFLAGS += -Wall -Wno-main -g3 -ggdb `pkg-config --cflags sdl2`
+CFLAGS += -Wall -Wno-main -Werror=pedantic -pedantic -std=c11 -g3 -ggdb \
+	`pkg-config --cflags sdl2`
 LDFLAGS += $(patsubst %,-Llib%,$(LIBS)) $(patsubst %,-l%,$(LIBS)) -lSDL2 \
 	-lSDL2_ttf -lSDL2_mixer -lSDL2_image -lm
 
