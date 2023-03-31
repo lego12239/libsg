@@ -1457,6 +1457,7 @@ _sg_event_fill(SDL_Event *e, enum event_type *type, int *data1, int *data2)
  * Функция убирает первое событие из очереди произошедших событий
  * и заполняет данные об этом событии в указанных переменных.
  * Возможны следующие типы событий и данных:
+ *   - SG_EVENT_NONE - нет события
  *   - SG_EVENT_QUIT - закрытие окна, нажатие ctrl-C
  *     - data1 - не используется
  *     - data2 - не используется
@@ -1484,8 +1485,10 @@ sg_event_poll(enum event_type *type, int *data1, int *data2)
 {
 	SDL_Event e;
 	
-	if (!SDL_PollEvent(&e))
+	if (!SDL_PollEvent(&e)) {
+		*type = SG_EVENT_NONE;
 		return 0;
+	}
 	_sg_event_fill(&e, type, data1, data2);
 	
 	return 1;
@@ -1511,8 +1514,10 @@ sg_event_wait(enum event_type *type, int *data1, int *data2)
 {
 	SDL_Event e;
 	
-	if (!SDL_WaitEvent(&e))
+	if (!SDL_WaitEvent(&e)) {
+		*type = SG_EVENT_NONE;
 		return 0;
+	}
 	_sg_event_fill(&e, type, data1, data2);
 	
 	return 1;

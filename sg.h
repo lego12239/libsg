@@ -65,7 +65,8 @@ enum blend_mode {
  */
 enum event_type {
 	SG_EVENT_UNKNOWN = -1,
-	SG_EVENT_QUIT = 0,
+	SG_EVENT_NONE = 0,
+	SG_EVENT_QUIT,
 	SG_EVENT_KEYDOWN,
 	SG_EVENT_KEYUP,
 	SG_EVENT_MOUSEMOTION,
