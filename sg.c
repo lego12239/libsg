@@ -1193,6 +1193,8 @@ _sg_event_getkey(SDL_Scancode sc)
 		return SG_SCANCODE_EQUALS;
 	case SDL_SCANCODE_ESCAPE:
 		return SG_SCANCODE_ESCAPE;
+	case SDL_SCANCODE_F:
+		return SG_SCANCODE_F;
 	case SDL_SCANCODE_F1:
 		return SG_SCANCODE_F1;
 	case SDL_SCANCODE_F2:
