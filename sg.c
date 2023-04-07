@@ -1401,7 +1401,7 @@ _sg_event_getwinevent(SDL_WindowEventID ev)
  * @todo добавить для window event data1 и data2 - например при изменении размера
  */
 static void
-_sg_event_fill(SDL_Event *e, enum event_type *type, int *data1, int *data2)
+_sg_event_fill(SDL_Event *e, sg_event_type_t *type, int *data1, int *data2)
 {
 	switch (e->type) {
 	case SDL_QUIT:
@@ -1481,7 +1481,7 @@ _sg_event_fill(SDL_Event *e, enum event_type *type, int *data1, int *data2)
  *     - data2 - прокрутка по y(-1, 0, 1)
  */
 int
-sg_event_poll(enum event_type *type, int *data1, int *data2)
+sg_event_poll(sg_event_type_t *type, int *data1, int *data2)
 {
 	SDL_Event e;
 	
@@ -1510,7 +1510,7 @@ sg_event_poll(enum event_type *type, int *data1, int *data2)
  * Типы событий и данных см в описании sg_event_poll().
  */
 int
-sg_event_wait(enum event_type *type, int *data1, int *data2)
+sg_event_wait(sg_event_type_t *type, int *data1, int *data2)
 {
 	SDL_Event e;
 	
@@ -1535,7 +1535,7 @@ void
 sg_wait_escape(void)
 {
 	int running = 1;
-	enum event_type etype;
+	sg_event_type_t etype;
 	int edata1 = 0, edata2 = 0;
 	
 	while (running) {

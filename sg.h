@@ -222,6 +222,7 @@ typedef uint32_t sg_color_t;
 typedef SDL_Texture* sg_texture_t;
 typedef Mix_Chunk* sg_sound_t;
 typedef Mix_Music* sg_music_t;
+typedef enum event_type sg_event_type_t;
 
 
 /**
@@ -661,7 +662,7 @@ sg_texture_t sg_image_load(const char *fname);
  *     - data1 - прокрутка по x(-1, 0, 1)
  *     - data2 - прокрутка по y(-1, 0, 1)
  */
-int sg_event_poll(enum event_type *type, int *data1, int *data2);
+int sg_event_poll(sg_event_type_t *type, int *data1, int *data2);
 
 /**
  * @ingroup Events
@@ -678,7 +679,7 @@ int sg_event_poll(enum event_type *type, int *data1, int *data2);
  * Если событий нет, то функция ждёт пока не появится хотя бы одно.
  * Типы событий и данных см в описании sg_event_poll().
  */
-int sg_event_wait(enum event_type *type, int *data1, int *data2);
+int sg_event_wait(sg_event_type_t *type, int *data1, int *data2);
 
 /**
  * @ingroup Events
