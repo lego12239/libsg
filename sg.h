@@ -278,9 +278,16 @@ void sg_get_window_size(unsigned int *width, unsigned int *height);
 
 /**
  * @ingroup Colors
- * @brief Установить текущий цвет в color (0xRRGGBBAA)
+ * @brief Установить текущий цвет. на указанный в color (0xRRGGBBAA)
  *
- * @param color - цвет (см @ref Colors)
+ * @param color - цвет, 32-битное число, формат - 0xRRGGBBAA
+ *
+ * Текстовые название цветов см. в разделе @ref Colors.
+ * Пример установки красного цвета в качестве текущего (две строчки делают одно и то же):
+ * @code
+ * sg_set_color(0xff0000ff);
+ * sg_set_color(SG_COLOR_RED);
+ * @endcode
  */
 void sg_set_color(sg_color_t color);
 
