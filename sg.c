@@ -141,6 +141,7 @@ static SDL_Window *__sg_window__;
 static SDL_Renderer *__sg_renderer__;
 static SDL_Texture *__sg_scene__, *__sg_scene_texture_curr__;
 static unsigned int __sg_spmode__ = 0;
+static unsigned int __sg_mousemode__ = 0;
 
 
 static SDL_Texture*
@@ -280,6 +281,7 @@ sg_create_window_ext(unsigned int width, unsigned int height,
 	sg_scene_texture(NULL);
 	sg_scene_clear();
 	
+	__sg_mousemode__ = mouse_mode;
 	if (SDL_SetRelativeMouseMode(mouse_mode ? SDL_TRUE : SDL_FALSE) != 0) {
 		fprintf(stderr, "Ошибка инициализации мыши: %s\n", SDL_GetError());
 		exit(EXIT_FAILURE);
@@ -1427,8 +1429,14 @@ _sg_event_fill(SDL_Event *e, sg_event_type_t *type, int *data1, int *data2)
 		break;
 	case SDL_MOUSEMOTION:
 		*type = SG_EVENT_MOUSEMOTION;
-		*data1 = e->motion.xrel;
-		*data2 = e->motion.yrel;
+		if (__sg_mousemode__ == 0)
+			*data1 = e->motion.x;
+		else
+			*data1 = e->motion.xrel;
+		if (__sg_mousemode__ == 0)
+			*data2 = e->motion.y;
+		else
+			*data2 = e->motion.yrel;
 		break;
 	case SDL_MOUSEBUTTONDOWN:
 		*type = SG_EVENT_MOUSEBUTTONDOWN;
@@ -1466,26 +1474,26 @@ _sg_event_fill(SDL_Event *e, sg_event_type_t *type, int *data1, int *data2)
  * Функция убирает первое событие из очереди произошедших событий
  * и заполняет данные об этом событии в указанных переменных.
  * Возможны следующие типы событий и данных:
- *   - SG_EVENT_NONE - нет события
- *   - SG_EVENT_QUIT - закрытие окна, нажатие ctrl-C
+ *   - type == SG_EVENT_NONE - нет события
+ *   - type == SG_EVENT_QUIT - закрытие окна, нажатие ctrl-C
  *     - data1 - не используется
  *     - data2 - не используется
- *   - SG_EVENT_KEYDOWN - нажатие клавиши
+ *   - type == SG_EVENT_KEYDOWN - нажатие клавиши
  *     - data1 - сканкод клавиши (SG_SCANCODE_*)
  *     - data2 - повторное срабатывание (1 если клавиша нажата долгое время)
- *   - SG_EVENT_KEYUP - отпускание клавиши
+ *   - type == SG_EVENT_KEYUP - отпускание клавиши
  *     - data1 - сканкод клавиши (SG_SCANCODE_*)
  *     - data2 - не используется
- *   - SG_EVENT_MOUSEMOTION - движение мыши
+ *   - type == SG_EVENT_MOUSEMOTION - движение мыши
  *     - data1 - относительное смещение по x(-1, 0, 1)
  *     - data2 - относительное смещение по y(-1, 0, 1)
- *   - SG_EVENT_MOUSEBUTTONDOWN - нажатии кнопки мыши
+ *   - type == SG_EVENT_MOUSEBUTTONDOWN - нажатии кнопки мыши
  *     - data1 - код кнопки (SG_BUTTON_*)
  *     - data2 - не используется
- *   - SG_EVENT_MOUSEBUTTONUP - отпускание кнопки мыши
+ *   - type == SG_EVENT_MOUSEBUTTONUP - отпускание кнопки мыши
  *     - data1 - код кнопки (SG_BUTTON_*)
  *     - data2 - не используется
- *   - SG_EVENT_MOUSEWHEEL - прокрутка колёсика мыши
+ *   - type == SG_EVENT_MOUSEWHEEL - прокрутка колёсика мыши
  *     - data1 - прокрутка по x(-1, 0, 1)
  *     - data2 - прокрутка по y(-1, 0, 1)
  */

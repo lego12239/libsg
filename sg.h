@@ -636,7 +636,7 @@ sg_texture_t sg_image_load(const char *fname);
 
 /**
  * @ingroup Events
- * @brief Получить событие из очереди произошедших событий
+ * @brief Получить событие
  *
  * @param[out] type - тип события
  * @param[out] data1 - данные события
@@ -647,25 +647,26 @@ sg_texture_t sg_image_load(const char *fname);
  * Функция убирает первое событие из очереди произошедших событий
  * и заполняет данные об этом событии в указанных переменных.
  * Возможны следующие типы событий и данных:
- *   - SG_EVENT_QUIT - закрытие окна, нажатие ctrl-C
+ *   - type == SG_EVENT_NONE - нет события
+ *   - type == SG_EVENT_QUIT - закрытие окна, нажатие ctrl-C
  *     - data1 - не используется
  *     - data2 - не используется
- *   - SG_EVENT_KEYDOWN - нажатие клавиши
+ *   - type == SG_EVENT_KEYDOWN - нажатие клавиши
  *     - data1 - сканкод клавиши (SG_SCANCODE_*)
  *     - data2 - повторное срабатывание (1 если клавиша нажата долгое время)
- *   - SG_EVENT_KEYUP - отпускание клавиши
+ *   - type == SG_EVENT_KEYUP - отпускание клавиши
  *     - data1 - сканкод клавиши (SG_SCANCODE_*)
  *     - data2 - не используется
- *   - SG_EVENT_MOUSEMOTION - движение мыши
+ *   - type == SG_EVENT_MOUSEMOTION - движение мыши
  *     - data1 - относительное смещение по x(-1, 0, 1)
  *     - data2 - относительное смещение по y(-1, 0, 1)
- *   - SG_EVENT_MOUSEBUTTONDOWN - нажатии кнопки мыши
+ *   - type == SG_EVENT_MOUSEBUTTONDOWN - нажатии кнопки мыши
  *     - data1 - код кнопки (SG_BUTTON_*)
  *     - data2 - не используется
- *   - SG_EVENT_MOUSEBUTTONUP - отпускание кнопки мыши
+ *   - type == SG_EVENT_MOUSEBUTTONUP - отпускание кнопки мыши
  *     - data1 - код кнопки (SG_BUTTON_*)
  *     - data2 - не используется
- *   - SG_EVENT_MOUSEWHEEL - прокрутка колёсика мыши
+ *   - type == SG_EVENT_MOUSEWHEEL - прокрутка колёсика мыши
  *     - data1 - прокрутка по x(-1, 0, 1)
  *     - data2 - прокрутка по y(-1, 0, 1)
  */
