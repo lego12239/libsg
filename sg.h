@@ -658,8 +658,12 @@ sg_texture_t sg_image_load(const char *fname);
  *     - data1 - сканкод клавиши (SG_SCANCODE_*)
  *     - data2 - не используется
  *   - type == SG_EVENT_MOUSEMOTION - движение мыши
- *     - data1 - относительное смещение по x(-1, 0, 1)
- *     - data2 - относительное смещение по y(-1, 0, 1)
+ *     - если режим захвата мыши включен (см. @ref pg_mouse_mode):
+ *       - data1 - относительное смещение по x(-1, 0, 1)
+ *       - data2 - относительное смещение по y(-1, 0, 1)
+ *     - если режим захвата мыши выключен:
+ *       - data1 - абсолютная координата по x
+ *       - data2 - абсолютная координата по y
  *   - type == SG_EVENT_MOUSEBUTTONDOWN - нажатии кнопки мыши
  *     - data1 - код кнопки (SG_BUTTON_*)
  *     - data2 - не используется
@@ -669,6 +673,17 @@ sg_texture_t sg_image_load(const char *fname);
  *   - type == SG_EVENT_MOUSEWHEEL - прокрутка колёсика мыши
  *     - data1 - прокрутка по x(-1, 0, 1)
  *     - data2 - прокрутка по y(-1, 0, 1)
+ *
+ * Пример обработки нажатия клавиши ESCAPE:
+ * @code
+ * sg_event_type_t etype;
+ * int data1, data2;
+ *
+ * sg_event_poll(&type, &data1, &data2);
+ * if ((type == SG_EVENT_KEYDOWN) && (data1 == SG_SCANCODE_ESCAPE)) {
+ *   exit(0);
+ * }
+ * @endcode
  */
 int sg_event_poll(sg_event_type_t *type, int *data1, int *data2);
 
