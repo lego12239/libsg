@@ -728,7 +728,7 @@ void sg_draw_texture_ext(sg_texture_t texture, int x, int y, int w, int h, doubl
  * @ingroup TextFun
  * @brief Нарисовать текст
  *
- * @param font - имя файла шрифта
+ * @param font - имя файла шрифта (абсолютное или относительно к текущей директории)
  * @param size - размер шрифта
  * @param x - x-координата для отрисовки текста
  * @param y - y-координата для отрисовки текста
