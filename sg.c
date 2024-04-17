@@ -359,6 +359,32 @@ sg_get_window_size(unsigned int *width, unsigned int *height)
 }
 
 /**
+ * @ingroup Init
+ * @brief Получить объект window
+ *
+ * Данный объект может быть использован для вызова SDL-функций, которые требуют его
+ * в качестве параметра.
+ */
+SDL_Window*
+sg_get_window(void)
+{
+	return __sg_window__;
+}
+
+/**
+ * @ingroup Init
+ * @brief Получить объект renderer
+ *
+ * Данный объект может быть использован для вызова SDL-функций, которые требуют его
+ * в качестве параметра.
+ */
+SDL_Renderer*
+sg_get_renderer(void)
+{
+	return __sg_renderer__;
+}
+
+/**
  * @ingroup Colors
  * @brief Установить текущий цвет. на указанный в color (0xRRGGBBAA)
  *
