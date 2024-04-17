@@ -42,7 +42,7 @@ Examples
 
 From your project dir:
 
-- cd libsg; make
+- cd libsg/examples; make
 
 Now you can run all executable files starting with ex word.
 
