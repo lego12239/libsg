@@ -978,19 +978,34 @@ sg_draw_texture(sg_texture_t texture, int x, int y)
  * w и h - размеры итогового изображения. Если w равно 0, то
  * ширина для итогового изображения при отрисовке текстуры равна ширине
  * текстуры. Тоже самое и с высотой.
+ * Если w равно -1, то ширина для итогового изображения при отрисовке текстуры
+ * будет такой, что бы сохранить пропорции изображения. Тоже самое и с высотой.
+ * w и h одновременно не могут быть -1.
  */
 void
 sg_draw_texture_ext(sg_texture_t texture, int x, int y, int w, int h,
   double angle, int flip)
 {
 	SDL_Rect dstrect;
+	float scale;
 	
+	if ((w == -1) && (h == -1)) {
+		fprintf(stderr, "w и h не могут быть одновременно -1");
+		exit(EXIT_FAILURE);
+	}
 	dstrect.x = x;
 	dstrect.y = y;
 	SDL_QueryTexture(texture, NULL, NULL, &dstrect.w, &dstrect.h);
-	if (w)
+	if (w == -1) {
+		scale = (float)h / dstrect.h;
+		dstrect.w = (float)dstrect.w * scale;
+	} else if (h == -1) {
+		scale = (float)w / dstrect.w;
+		dstrect.h = (float)dstrect.h * scale;
+	}
+	if (w > 0)
 		dstrect.w = w;
-	if (h)
+	if (h > 0)
 		dstrect.h = h;
 	
 	switch (flip) {
