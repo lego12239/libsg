@@ -385,6 +385,27 @@ sg_get_renderer(void)
 }
 
 /**
+ * @ingroup Init
+ * @brief Получить режим экрана текущего окна
+ *
+ * @param width - ширина
+ * @param height - высота
+ * @param refresh_rate - частота обновления экрана (Гц)
+ */
+void
+sg_get_window_dispmode(unsigned int *width, unsigned int *height,
+unsigned int *refresh_rate)
+{
+	SDL_DisplayMode dsp_mode;
+
+	//SDL_GetWindowDisplayMode(__sg_window__, &dsp_mode);
+	SDL_GetCurrentDisplayMode(SDL_GetWindowDisplayIndex(__sg_window__), &dsp_mode);
+	*width = dsp_mode.w;
+	*height = dsp_mode.h;
+	*refresh_rate = dsp_mode.refresh_rate;
+}
+
+/**
  * @ingroup Colors
  * @brief Установить текущий цвет. на указанный в color (0xRRGGBBAA)
  *

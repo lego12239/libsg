@@ -423,6 +423,16 @@ SDL_Window* sg_get_window(void);
 SDL_Renderer* sg_get_renderer(void);
 
 /**
+ * @ingroup Init
+ * @brief Получить режим экрана текущего окна
+ *
+ * @param width - ширина
+ * @param height - высота
+ * @param refresh_rate - частота обновления экрана (Гц)
+ */
+void sg_get_window_dispmode(unsigned int *width, unsigned int *height, unsigned int *refresh_rate);
+
+/**
  * @ingroup Colors
  * @brief Установить текущий цвет. на указанный в color (0xRRGGBBAA)
  *
