@@ -1461,7 +1461,7 @@ _sg_event_fill(SDL_Event *e, sg_event_type_t *type, int *data1, int *data2)
 	case SDL_MOUSEWHEEL:
 		*type = SG_EVENT_MOUSEWHEEL;
 		*data1 = e->wheel.x;
-		*data2 = e->wheel.y;
+		*data2 = -e->wheel.y;
 		break;
 	case SDL_WINDOWEVENT:
 		*type = SG_EVENT_WINDOW;
