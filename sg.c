@@ -131,7 +131,7 @@
  * @brief Другие функции
  */
 
- 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -150,14 +150,14 @@ static SDL_Texture*
 scene_make(unsigned int width, unsigned int height)
 {
 	SDL_Texture *t;
-	
+
     t = SDL_CreateTexture(__sg_renderer__, SDL_PIXELFORMAT_RGBA8888,
       SDL_TEXTUREACCESS_TARGET, width, height);
     if (!t) {
     	fprintf(stderr, "Ошибка создания сцены: %s\n", SDL_GetError());
     	exit(EXIT_FAILURE);
     }
-    
+
     return t;
 }
 
@@ -172,7 +172,7 @@ scene_clear(SDL_Texture* t)
 {
 	SDL_Color c;
 	SDL_Texture *t_orig;
-	
+
 	t_orig = SDL_GetRenderTarget(__sg_renderer__);
 	if (SDL_SetRenderTarget(__sg_renderer__, t) != 0) {
 		fprintf(stderr, "Ошибка очистки сцены: %s\n", SDL_GetError());
@@ -206,7 +206,7 @@ scene_show(SDL_Texture* t)
 {
 	SDL_Rect rect;
 	SDL_Texture *t_orig;
-	
+
 	t_orig = SDL_GetRenderTarget(__sg_renderer__);
 	if (SDL_SetRenderTarget(__sg_renderer__, NULL) != 0) {
 		fprintf(stderr, "Ошибка отображения сцены: %s\n", SDL_GetError());
@@ -251,7 +251,7 @@ sg_create_window_ext(unsigned int width, unsigned int height,
   unsigned int scene_pmode, unsigned int mouse_mode, unsigned int flags)
 {
 	uint32_t rflags;
-	
+
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
 		fprintf(stderr, "Ошибка инициализации графики: %s\n", SDL_GetError());
 		exit(EXIT_FAILURE);
@@ -276,13 +276,13 @@ sg_create_window_ext(unsigned int width, unsigned int height,
 		SDL_Quit();
 		return -1;
 	}
-	
+
 	__sg_spmode__ = scene_pmode;
 	if (__sg_spmode__ < 2)
 		__sg_scene__ = scene_make(width, height);
 	sg_scene_texture(NULL);
 	sg_scene_clear();
-	
+
 	__sg_mousemode__ = mouse_mode;
 	if (SDL_SetRelativeMouseMode(mouse_mode ? SDL_TRUE : SDL_FALSE) != 0) {
 		fprintf(stderr, "Ошибка инициализации мыши: %s\n", SDL_GetError());
@@ -304,7 +304,7 @@ sg_create_window_ext(unsigned int width, unsigned int height,
 		exit(EXIT_FAILURE);
 	}
 	Mix_AllocateChannels(16);
-	
+
 	return 0;
 }
 
@@ -401,7 +401,7 @@ void
 sg_set_color(sg_color_t color)
 {
 	uint8_t r, g, b, a;
-	
+
 	r = color >> 24;
 	g = (color & 0xff0000) >> 16;
 	b = (color & 0xff00) >> 8;
@@ -498,7 +498,7 @@ sg_scene_clear(void)
 {
 	SDL_Color c;
 	int ret;
-	
+
 	if (__sg_spmode__ == 2) {
 		ret = SDL_GetRenderDrawColor(__sg_renderer__, &c.r, &c.g, &c.b, &c.a);
 		if (ret != 0) {
@@ -600,7 +600,7 @@ void
 sg_draw_rect(int x, int y, int width, int height)
 {
 	SDL_Rect rect;
-	
+
 	rect.x = x;
 	rect.y = y;
 	rect.w = width;
@@ -636,7 +636,7 @@ void
 sg_draw_filledrect(int x, int y, int width, int height)
 {
 	SDL_Rect rect;
-	
+
 	rect.x = x;
 	rect.y = y;
 	rect.w = width;
@@ -673,7 +673,7 @@ void
 sg_draw_ellipse(int x, int y, int rx, int ry)
 {
 	int xi, yi, dh, dv, dd, rx2, ry2;
-	
+
 	rx2 = rx * rx;
 	ry2 = ry * ry;
 	xi = 0;
@@ -710,7 +710,7 @@ sg_draw_ellipse(int x, int y, int rx, int ry)
 				yi--;
 				continue;
 			}
-		}	
+		}
 		xi++;
 		yi--;
 	}
@@ -742,7 +742,7 @@ void
 sg_draw_filledellipse(int x, int y, int rx, int ry)
 {
 	int xi, yi, dh, dv, dd, rx2, ry2;
-	
+
 	rx2 = rx * rx;
 	ry2 = ry * ry;
 	xi = 0;
@@ -773,7 +773,7 @@ sg_draw_filledellipse(int x, int y, int rx, int ry)
 				yi--;
 				continue;
 			}
-		}	
+		}
 		xi++;
 		yi--;
 	}
@@ -853,14 +853,14 @@ sg_texture_t
 sg_texture_create(int width, int height)
 {
 	SDL_Texture *t;
-	
+
 	t = SDL_CreateTexture(__sg_renderer__, SDL_PIXELFORMAT_RGBA8888,
 	  SDL_TEXTUREACCESS_TARGET, width, height);
 	if (!t) {
 		fprintf(stderr, "Ошибка создания текстуры: %s\n", SDL_GetError());
 		exit(EXIT_FAILURE);
 	}
-	
+
 	return t;
 }
 
@@ -970,11 +970,11 @@ void
 sg_draw_texture(sg_texture_t texture, int x, int y)
 {
 	SDL_Rect dstrect;
-	
+
 	dstrect.x = x;
 	dstrect.y = y;
 	SDL_QueryTexture(texture, NULL, NULL, &dstrect.w, &dstrect.h);
-	
+
 	if (SDL_RenderCopy(__sg_renderer__, texture, NULL, &dstrect) != 0) {
 		fprintf(stderr, "Ошибка рисования текстуры: %s", SDL_GetError());
 		exit(EXIT_FAILURE);
@@ -1014,7 +1014,7 @@ sg_draw_texture_ext(sg_texture_t texture, int x, int y, int w, int h,
 {
 	SDL_Rect dstrect;
 	float scale;
-	
+
 	if ((w == -1) && (h == -1)) {
 		fprintf(stderr, "w и h не могут быть одновременно -1");
 		exit(EXIT_FAILURE);
@@ -1033,7 +1033,7 @@ sg_draw_texture_ext(sg_texture_t texture, int x, int y, int w, int h,
 		dstrect.w = w;
 	if (h > 0)
 		dstrect.h = h;
-	
+
 	switch (flip) {
 	case SG_FLIP_NONE:
 		flip = SDL_FLIP_NONE;
@@ -1048,7 +1048,7 @@ sg_draw_texture_ext(sg_texture_t texture, int x, int y, int w, int h,
 		flip = SDL_FLIP_NONE;
 		break;
 	}
-	
+
 	if (SDL_RenderCopyEx(__sg_renderer__, texture, NULL, &dstrect, angle,
 	  NULL, flip) != 0) {
 		fprintf(stderr, "Ошибка рисования текстуры: %s", SDL_GetError());
@@ -1133,7 +1133,7 @@ _sg_render_text(const char *font, unsigned int size, const char *text,
 	int len;
 	char *str;
 	va_list ap1;
-	
+
 	f  = TTF_OpenFont(font, size);
 	if (!f) {
 		fprintf(stderr, "Ошибка загрузки шрифта: %s\n", TTF_GetError());
@@ -1183,7 +1183,7 @@ sg_image_load(const char *fname)
 {
 	SDL_Surface *s;
 	SDL_Texture *t;
-	
+
 	s = IMG_Load(fname);
 	if (!s) {
 		fprintf(stderr, "Ошибка загрузки изображения: %s\n", IMG_GetError());
@@ -1399,7 +1399,7 @@ _sg_event_getkey(SDL_Scancode sc)
 	default:
 		break;
 	}
-	
+
 	return -1;
 }
 
@@ -1416,7 +1416,7 @@ _sg_event_getmbutton(uint8_t b)
 	default:
 		break;
 	}
-	
+
 	return -1;
 }
 
@@ -1457,7 +1457,7 @@ _sg_event_getwinevent(SDL_WindowEventID ev)
 	default:
 		break;
 	}
-	
+
 	return -1;
 }
 
@@ -1516,7 +1516,7 @@ _sg_event_fill(SDL_Event *e, sg_event_type_t *type, int *data1, int *data2)
 
 /**
  * @ingroup Events
- * @brief Получить событие 
+ * @brief Получить событие
  *
  * @param[out] type - тип события
  * @param[out] data1 - данные события
@@ -1569,13 +1569,13 @@ int
 sg_event_poll(sg_event_type_t *type, int *data1, int *data2)
 {
 	SDL_Event e;
-	
+
 	if (!SDL_PollEvent(&e)) {
 		*type = SG_EVENT_NONE;
 		return 0;
 	}
 	_sg_event_fill(&e, type, data1, data2);
-	
+
 	return 1;
 }
 
@@ -1598,13 +1598,13 @@ int
 sg_event_wait(sg_event_type_t *type, int *data1, int *data2)
 {
 	SDL_Event e;
-	
+
 	if (!SDL_WaitEvent(&e)) {
 		*type = SG_EVENT_NONE;
 		return 0;
 	}
 	_sg_event_fill(&e, type, data1, data2);
-	
+
 	return 1;
 }
 
@@ -1622,7 +1622,7 @@ sg_wait_escape(void)
 	int running = 1;
 	sg_event_type_t etype;
 	int edata1 = 0, edata2 = 0;
-	
+
 	while (running) {
 		sg_event_wait(&etype, &edata1, &edata2);
 		if ((etype == SG_EVENT_QUIT) ||
@@ -1649,7 +1649,7 @@ sg_sound_t
 sg_sound_load(const char *fname)
 {
 	Mix_Chunk *snd;
-	
+
 	snd = Mix_LoadWAV(fname);
 	if (!snd) {
 		fprintf(stderr, "Ошибка загрузки звука: %s\n", Mix_GetError());
@@ -1757,7 +1757,7 @@ sg_music_t
 sg_music_load(const char *fname)
 {
 	Mix_Music *m;
-	
+
 	m = Mix_LoadMUS(fname);
 	if (!m) {
 		fprintf(stderr, "Ошибка загрузки музыки: %s\n", Mix_GetError());
