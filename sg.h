@@ -993,6 +993,31 @@ void sg_music_stop(void);
 
 /**
  * @ingroup AudioFun
+ * @brief Пауза проигрывания музыки
+ *
+ * Вызов sg_music_resume() возобновляет проигрывание с места паузы.
+ */
+void sg_music_pause(void);
+
+/**
+ * @ingroup AudioFun
+ * @brief Возобновить проигрывание музыки
+ *
+ * Проигрывание возобновляется с места предыдущей паузы.
+ */
+void sg_music_resume(void);
+
+/**
+ * @ingroup AudioFun
+ * @brief Проверить на паузе ли музыка
+ *
+ * @return 0 - не на паузе
+ * @return 1 - на паузе
+ */
+int sg_music_is_paused(void);
+
+/**
+ * @ingroup AudioFun
  * @brief Проверить проигрывается ли музыка
  *
  * @return 0 - не проигрывается
